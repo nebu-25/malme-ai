@@ -1,0 +1,28 @@
+name: Deploy to Firebase
+on:
+  push:
+    branches: [main]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npm run build
+        env:
+          # .env는 GitHub에 올라가지 않으므로 빌드 변수는 여기서 주입한다.
+          # 비밀 키만 Secrets에서, 나머지(모델 ID 등)는 비밀이 아니라 값으로 둔다.
+          VITE_OPENROUTER_API_KEY: ${{ secrets.VITE_OPENROUTER_API_KEY }}
+          VITE_OPENROUTER_MODEL: google/gemini-2.5-flash
+          VITE_OPENROUTER_FALLBACK_1: google/gemini-2.5-pro
+          VITE_OPENROUTER_FALLBACK_2: openai/gpt-audio
+          VITE_APP_URL: https://malme-ai-hs.web.app
+          VITE_APP_NAME: 말메 AI
+      - uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
