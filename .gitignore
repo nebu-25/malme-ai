@@ -31,3 +31,9 @@ dist-ssr
 # Firebase
 .firebase
 firebase-debug.log
+
+# 서비스 계정 키 (절대 커밋 금지 — 자격증명 유출 위험)
+*firebase-adminsdk*.json
+*serviceAccount*.json
+*-service-account*.json
+gcp-key*.json
