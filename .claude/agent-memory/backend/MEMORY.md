@@ -1,0 +1,2 @@
+- [Firebase Hosting/Firestore setup for malme-ai-hs](project_firebase_hosting.md) — cache headers gap + live API key bundling gotcha
+- [Session tool permissions can be inconsistent](feedback_session_tool_permissions.md) — Edit denied while Bash/Read worked; hand off diffs instead of working around it

@@ -1,0 +1,1 @@
+- [malme-ai project overview](project_malme-ai-overview.md) — Vite+React PWA voice memo app, PRD at docs/prd.md, known auth-guard/signOut gaps as of 2026-06-22

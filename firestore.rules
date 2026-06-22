@@ -1,0 +1,16 @@
+rules_version = '2';
+
+// 메모는 작성자 본인만 읽기/쓰기 가능 (다른 사람 메모 접근 차단) — PRD 5번 기능
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /memos/{memoId} {
+      // 본인이 만든 문서만 조회/수정/삭제
+      allow read, update, delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+
+      // 생성 시 userId 가 로그인한 사용자와 일치해야 함
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid;
+    }
+  }
+}
