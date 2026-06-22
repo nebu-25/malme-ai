@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { Mic, Square, Loader2, Check, RotateCcw, Save } from 'lucide-react'
+import { Mic, Square, Loader2, Check, RotateCcw, Save, Settings } from 'lucide-react'
 import { auth, db } from '../firebase.js'
 import { transcribeAudio, summarizeMemo } from '../utils/aiProcessor.js'
 import NavBar from './NavBar.jsx'
@@ -198,7 +198,12 @@ export default function VoiceRecorder() {
     <div style={styles.page}>
       <header style={styles.header}>
         <h1 style={styles.title}>새 음성 메모</h1>
-        {user && <span style={styles.user}>{user.displayName || user.email}</span>}
+        <div style={styles.headerRight}>
+          {user && <span style={styles.user}>{user.displayName || user.email}</span>}
+          <button onClick={() => navigate('/settings')} aria-label="설정" style={styles.iconBtn}>
+            <Settings size={20} />
+          </button>
+        </div>
       </header>
 
       {/* 상태 표시 */}
@@ -290,7 +295,9 @@ const styles = {
     justifyContent: 'space-between',
   },
   title: { fontSize: 20, fontWeight: 800, color: '#7c3aed', margin: 0 },
-  user: { fontSize: 12, color: '#a78bfa', maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+  headerRight: { display: 'flex', alignItems: 'center', gap: 10 },
+  user: { fontSize: 12, color: '#a78bfa', maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+  iconBtn: { border: 'none', background: 'transparent', color: '#7c3aed', padding: 4, cursor: 'pointer', display: 'flex' },
   statusBox: {
     marginTop: 8,
     display: 'flex',
