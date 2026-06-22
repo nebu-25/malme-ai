@@ -2,6 +2,12 @@ name: Deploy to Firebase
 on:
   push:
     branches: [main]
+    # 문서만 바뀐 경우 배포를 건너뛴다 (빌드 결과물에 영향 없음)
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
