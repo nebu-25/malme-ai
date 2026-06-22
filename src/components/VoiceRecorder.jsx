@@ -156,7 +156,7 @@ export default function VoiceRecorder() {
     setError('')
     setStatus('saving')
     try {
-      const docRef = await addDoc(collection(db, 'memos'), {
+      await addDoc(collection(db, 'memos'), {
         userId: user.uid,
         rawText: result.rawText,
         summary: result.summary,
@@ -166,8 +166,8 @@ export default function VoiceRecorder() {
         // audioUrl: (선택) Firebase Storage 연동 시 추가
       })
       setStatus('saved')
-      // 잠시 후 상세 화면으로 이동
-      setTimeout(() => navigate(`/memo/${docRef.id}`), 800)
+      // 잠시 후 메모 목록으로 이동 (목록의 카드를 누르면 상세·편집·삭제 모달이 열림)
+      setTimeout(() => navigate('/memos'), 800)
     } catch (err) {
       console.error('저장 실패:', err)
       setError('저장에 실패했어요. 다시 시도해 주세요.')
