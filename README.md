@@ -2,6 +2,10 @@
 
 > 말로 메모하면 AI가 알아서 정리해주는 음성 메모 PWA
 
+[![Deploy to Firebase](https://github.com/nebu-25/malme-ai/actions/workflows/deploy.yml/badge.svg)](https://github.com/nebu-25/malme-ai/actions/workflows/deploy.yml)
+
+**🔗 라이브 데모: [https://malme-ai-hs.web.app](https://malme-ai-hs.web.app)**
+
 말메 AI는 마이크에 말을 하면 텍스트로 변환하고, AI가 **한 줄 요약 + 태그 3개 + 카테고리 1개**까지 자동으로 붙여서 저장해주는 음성 메모 앱입니다.
 
 기존 음성 메모 앱들은 "녹음 → 텍스트 변환"까지만 도와줄 뿐, 그 이후 정리(요약, 분류, 검색)는 사용자가 직접 해야 했습니다. 그 결과 메모가 쌓이기만 하고 다시 찾아보지 않는 "메모 무덤"이 되곤 합니다.
