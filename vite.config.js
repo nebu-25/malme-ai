@@ -48,6 +48,25 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // 무거운 의존성을 별도 청크로 분리 → 단일 거대 번들 방지 + 캐시 효율↑
+        // (firestore/auth 는 각각 커서 따로 떼어낸다. 순서 중요: 'react' 가 다른
+        //  패키지명에 부분일치하므로 firebase·lucide·router 를 먼저 매칭한다.)
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return
+          if (id.includes('firebase/firestore') || id.includes('@firebase/firestore')) return 'firebase-firestore'
+          if (id.includes('firebase/auth') || id.includes('@firebase/auth')) return 'firebase-auth'
+          if (id.includes('firebase') || id.includes('@firebase')) return 'firebase-core'
+          if (id.includes('lucide-react')) return 'icons'
+          if (id.includes('react-router') || id.includes('@remix-run')) return 'router'
+          if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/scheduler/')) return 'react'
+          return 'vendor'
+        },
+      },
+    },
+  },
   server: {
     port: 5173,
     watch: {
